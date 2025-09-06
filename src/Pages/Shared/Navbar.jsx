@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
 
 const Navbar = () => {
     const { user, logoutUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const links = (
         <>
-            <li><NavLink to='/'>Home</NavLink></li>
-           
+            <li><NavLink className='btn btn-primary' to='/'>Home</NavLink></li>
         </>
     );
 
@@ -16,6 +16,7 @@ const Navbar = () => {
         logoutUser()
             .then(() => {
                 console.log("User logged out");
+                navigate("/signIn"); // ✅ logout করলে SignIn এ redirect
             })
             .catch(error => {
                 console.log(error.message);

@@ -3,11 +3,11 @@ import Lottie from 'lottie-react';
 import { FcGoogle } from "react-icons/fc";
 import RegisterLottie from '../../assets/lotties/register.json';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
-import { Link, useNavigate } from 'react-router'; // ✅ useNavigate যোগ করলাম
+import { Link, useNavigate } from 'react-router';
 
 const Register = () => {
     const { createUser, googleLogin } = useContext(AuthContext);
-    const navigate = useNavigate(); // ✅ navigate hook
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -35,108 +35,74 @@ const Register = () => {
 
         createUser(formData.email, formData.password)
             .then(result => {
-                console.log("Email user:", result.user);
                 alert(`User ${formData.fullName} registered successfully!`);
-                navigate("/"); // ✅ Register successful হলে home এ redirect
+                navigate("/"); // redirect after register
             })
-            .catch(error => {
-                console.log(error);
-                alert(error.message);
-            });
+            .catch(error => alert(error.message));
     };
 
-    // ✅ Google Login Handler
     const handleGoogleLogin = () => {
         googleLogin()
             .then(result => {
-                console.log("Google user:", result.user);
                 alert(`Welcome ${result.user.displayName || "User"}!`);
-                navigate("/"); // ✅ Google login successful হলে home এ redirect
+                navigate("/"); // redirect after Google login
             })
-            .catch(error => {
-                console.log(error);
-                alert(error.message);
-            });
+            .catch(error => alert(error.message));
     };
 
     return (
-        <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
-            <div className="flex flex-col lg:flex-row items-center lg:items-start bg-base-100 shadow-2xl rounded-2xl overflow-hidden max-w-6xl w-full">
-                
+        <div className="min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center p-4">
+            <div className="flex flex-col lg:flex-row items-center lg:items-start bg-white shadow-2xl rounded-3xl overflow-hidden max-w-6xl w-full">
+
                 {/* Registration Form */}
-                <div className="w-full lg:w-1/2 p-8">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-center mb-6">Register Now!</h1>
+                <div className="w-full lg:w-1/2 p-10">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-center mb-6 text-purple-700">Register Now!</h1>
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
-                        {/* Full Name */}
-                        <div>
-                            <label className="label">Full Name</label>
-                            <input 
-                                type="text" 
-                                name="fullName" 
-                                value={formData.fullName}
-                                onChange={handleChange}
-                                className="input input-bordered w-full" 
-                                placeholder="Full Name" 
-                                required
-                            />
-                        </div>
+                        <input 
+                            type="text" 
+                            name="fullName" 
+                            value={formData.fullName}
+                            onChange={handleChange}
+                            className="input input-bordered w-full" 
+                            placeholder="Full Name" 
+                            required
+                        />
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="input input-bordered w-full" 
+                            placeholder="Email" 
+                            required
+                        />
+                        <input 
+                            type="password" 
+                            name="password" 
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="input input-bordered w-full" 
+                            placeholder="Password" 
+                            required
+                        />
+                        <input 
+                            type="text" 
+                            name="photoUrl" 
+                            value={formData.photoUrl}
+                            onChange={handleChange}
+                            className="input input-bordered w-full" 
+                            placeholder="Photo URL" 
+                        />
+                        <input 
+                            type="text" 
+                            name="phone" 
+                            value={formData.phone}
+                            onChange={handleChange}
+                            className="input input-bordered w-full" 
+                            placeholder="Phone Number" 
+                        />
 
-                        {/* Email */}
-                        <div>
-                            <label className="label">Email</label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="input input-bordered w-full" 
-                                placeholder="Email" 
-                                required
-                            />
-                        </div>
-
-                        {/* Password */}
-                        <div>
-                            <label className="label">Password</label>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                value={formData.password}
-                                onChange={handleChange}
-                                className="input input-bordered w-full" 
-                                placeholder="Password" 
-                                required
-                            />
-                        </div>
-
-                        {/* Photo URL */}
-                        <div>
-                            <label className="label">Photo URL</label>
-                            <input 
-                                type="text" 
-                                name="photoUrl" 
-                                value={formData.photoUrl}
-                                onChange={handleChange}
-                                className="input input-bordered w-full" 
-                                placeholder="Photo URL" 
-                            />
-                        </div>
-
-                        {/* Phone */}
-                        <div>
-                            <label className="label">Phone Number</label>
-                            <input 
-                                type="text" 
-                                name="phone" 
-                                value={formData.phone}
-                                onChange={handleChange}
-                                className="input input-bordered w-full" 
-                                placeholder="Phone Number" 
-                            />
-                        </div>
-
-                        {/* Terms */}
                         <div className="flex items-center mt-2">
                             <input 
                                 type="checkbox" 
@@ -148,36 +114,35 @@ const Register = () => {
                             <span>I agree to Terms & Conditions</span>
                         </div>
 
-                        {/* Register Button */}
-                        <button type="submit" className="btn btn-neutral w-full mt-4">
+                        <button type="submit" className="btn btn-gradient w-full mt-4 text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
                             Register
                         </button>
                     </form>
 
-                    {/* ✅ Google Login Button */}
                     <button 
                         onClick={handleGoogleLogin} 
-                        className="btn btn-outline w-full mt-4 flex items-center justify-center gap-2"
+                        className="btn btn-outline w-full mt-4 flex items-center justify-center gap-2 hover:bg-purple-100"
                     >
                         <FcGoogle className="text-2xl" /> 
-                        Login with Google
+                        Continue with Google
                     </button>
 
-                    {/* Login Link */}
-                    <p className="text-center mt-6">
-                        You have an account?{" "}
-                        <Link to="/signIn" className="text-blue-600 font-semibold hover:underline">
-                            Login
+                    <p className="text-center mt-6 text-gray-600">
+                        Already have an account?{" "}
+                        <Link to="/signIn" className="text-purple-600 font-semibold hover:underline">
+                            Sign In
                         </Link>
                     </p>
                 </div>
 
                 {/* Lottie Animation */}
-                <div className="w-full lg:w-1/2 p-4 flex justify-center items-center bg-base-200">
+                <div className="w-full lg:w-1/2 p-4 flex justify-center items-center bg-white">
                     <Lottie 
                         animationData={RegisterLottie} 
                         loop={true} 
+                        autoplay={true}
                         className="w-full h-full max-w-md"
+                        style={{ pointerEvents: 'none' }} // user can't accidentally interact
                     />
                 </div>
 

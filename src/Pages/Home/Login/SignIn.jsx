@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import Lottie from 'lottie-react';
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from 'react-router'; // ✅ useNavigate যোগ করা হলো
+import { Link, useNavigate } from 'react-router';
 import LoginLottie from '../../../assets/lotties/login.json';
 import { AuthContext } from '../../../Context/AuthContext/AuthContext';
 
 const SignIn = () => {
     const { loginUser, googleLogin } = useContext(AuthContext);
-    const navigate = useNavigate(); // ✅ hook for redirect
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -27,97 +27,80 @@ const SignIn = () => {
 
         loginUser(formData.email, formData.password)
             .then(result => {
-                console.log("Logged in user:", result.user);
                 alert(`Welcome back ${result.user.email}!`);
-                navigate("/"); // ✅ login success হলে home এ redirect
+                navigate("/"); // redirect after login
             })
-            .catch(error => {
-                console.log(error);
-                alert(error.message);
-            });
+            .catch(error => alert(error.message));
     };
 
-    // ✅ Google Login Handler
     const handleGoogleLogin = () => {
         googleLogin()
             .then(result => {
-                console.log("Google user:", result.user);
                 alert(`Welcome ${result.user.displayName || "User"}!`);
-                navigate("/"); // ✅ Google login success হলে home এ redirect
+                navigate("/"); // redirect after Google login
             })
-            .catch(error => {
-                console.log(error);
-                alert(error.message);
-            });
+            .catch(error => alert(error.message));
     };
 
     return (
-        <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
-            <div className="flex flex-col lg:flex-row items-center lg:items-start bg-base-100 shadow-2xl rounded-2xl overflow-hidden max-w-6xl w-full">
-                
+        <div className="min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center p-4">
+            <div className="flex flex-col lg:flex-row items-center lg:items-start bg-white shadow-2xl rounded-3xl overflow-hidden max-w-6xl w-full">
+
                 {/* Login Form */}
-                <div className="w-full lg:w-1/2 p-8">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-center mb-6">Sign In</h1>
+                <div className="w-full lg:w-1/2 p-10">
+                    <h1 className="text-4xl lg:text-5xl font-bold text-center mb-6 text-purple-700">Sign In</h1>
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
-                        {/* Email */}
-                        <div>
-                            <label className="label">Email</label>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="input input-bordered w-full" 
-                                placeholder="Email" 
-                                required
-                            />
-                        </div>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="input input-bordered w-full" 
+                            placeholder="Email" 
+                            required
+                        />
+                        <input 
+                            type="password" 
+                            name="password" 
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="input input-bordered w-full" 
+                            placeholder="Password" 
+                            required
+                        />
 
-                        {/* Password */}
-                        <div>
-                            <label className="label">Password</label>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                value={formData.password}
-                                onChange={handleChange}
-                                className="input input-bordered w-full" 
-                                placeholder="Password" 
-                                required
-                            />
-                        </div>
-
-                        {/* Login Button */}
-                        <button type="submit" className="btn btn-neutral w-full mt-4">
+                        <button type="submit" className="btn btn-gradient w-full mt-4 text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
                             Sign In
                         </button>
                     </form>
 
-                    {/* ✅ Google Login Button */}
+                    {/* Google Login */}
                     <button 
                         onClick={handleGoogleLogin} 
-                        className="btn btn-outline w-full mt-4 flex items-center justify-center gap-2"
+                        className="btn btn-outline w-full mt-4 flex items-center justify-center gap-2 hover:bg-purple-100"
                     >
                         <FcGoogle className="text-2xl" /> 
-                        Login with Google
+                        Continue with Google
                     </button>
 
-                    {/* ✅ Register Link */}
-                    <p className="text-center mt-6">
+                    {/* Register Link */}
+                    <p className="text-center mt-6 text-gray-600">
                         Don’t have an account?{" "}
-                        <Link to="/register" className="text-blue-600 font-semibold hover:underline">
+                        <Link to="/register" className="text-purple-600 font-semibold hover:underline">
                             Register
                         </Link>
                     </p>
                 </div>
 
                 {/* Lottie Animation */}
-                <div className="w-full lg:w-1/2 p-4 flex justify-center items-center bg-base-200">
+                <div className="w-full lg:w-1/2 p-4 flex justify-center items-center bg-white">
                     <Lottie 
                         animationData={LoginLottie} 
                         loop={true} 
+                        autoplay={true}
                         className="w-full h-full max-w-md"
+                        style={{ pointerEvents: 'none' }} // user can't interact
                     />
                 </div>
 
