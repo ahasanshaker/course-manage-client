@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from "motion/react";
+import { Link } from 'react-router';
 
 const Banner = () => {
   return (
@@ -67,13 +68,9 @@ const Banner = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            <motion.button
-              className="btn btn-primary"
-              whileHover={{ scale: 1.1, backgroundColor: "#4f46e5" }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get Started
-            </motion.button>
+           
+            <Link to='./all-course'>
+            
             <motion.button
               className="btn btn-outline btn-primary"
               whileHover={{ scale: 1.05 }}
@@ -81,6 +78,7 @@ const Banner = () => {
             >
               Explore Courses
             </motion.button>
+            </Link>
           </motion.div>
         </motion.div>
 
