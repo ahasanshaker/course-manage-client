@@ -1,8 +1,10 @@
 import Lottie from 'lottie-react';
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import RegisterLottie from '../../assets/lotties/register.json';
+import { AuthContext } from '../../Context/AuthContext/AuthContext';
 
 const Register = () => {
+    const {createUser}=use(AuthContext)
     // Form state
     const [formData, setFormData] = useState({
         fullName: '',
@@ -30,16 +32,26 @@ const Register = () => {
             return;
         }
         // Call your function with form data
-        console.log('Form Data Submitted:', formData);
+        // console.log('Form Data Submitted:', formData);
 
         // Example: call a function
         registerUser(formData);
+
+       createUser(formData.email, formData.password)
+  .then(result => {
+      console.log(result);
+  })
+  .catch(error => {
+      console.log(error);
+  });
+
+
     };
 
     // Example function to use submitted data
     const registerUser = (data) => {
         // You can connect this to your backend API or Firebase here
-        console.log('Registering user:', data);
+        // console.log('Registering user:', data);
         alert(`User ${data.fullName} registered successfully!`);
     };
 
@@ -53,7 +65,7 @@ const Register = () => {
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <div>
-                            <label className="label">Full Name</label>
+                            <label          className="label">Full Name</label>
                             <input 
                                 type="text" 
                                 name="fullName" 
