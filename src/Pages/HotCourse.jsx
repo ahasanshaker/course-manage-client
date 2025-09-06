@@ -25,7 +25,7 @@ const HotCourse = () => {
             <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Hot Courses</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {courses.slice(0, 6).map(course => (
-                    <CourseCard key={course.id} course={course} />
+                    <CourseCard key={course._id} course={course} />
                 ))}
             </div>
         </div>

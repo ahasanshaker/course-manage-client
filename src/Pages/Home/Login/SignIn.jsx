@@ -1,13 +1,15 @@
 import React, { useState, useContext } from 'react';
 import Lottie from 'lottie-react';
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import LoginLottie from '../../../assets/lotties/login.json';
 import { AuthContext } from '../../../Context/AuthContext/AuthContext';
 
 const SignIn = () => {
     const { loginUser, googleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state || '/';
 
     const [formData, setFormData] = useState({
         email: '',
@@ -28,7 +30,7 @@ const SignIn = () => {
         loginUser(formData.email, formData.password)
             .then(result => {
                 alert(`Welcome back ${result.user.email}!`);
-                navigate("/"); // redirect after login
+                navigate(from); // redirect after login
             })
             .catch(error => alert(error.message));
     };
@@ -37,7 +39,7 @@ const SignIn = () => {
         googleLogin()
             .then(result => {
                 alert(`Welcome ${result.user.displayName || "User"}!`);
-                navigate("/"); // redirect after Google login
+                navigate(from); // redirect after Google login
             })
             .catch(error => alert(error.message));
     };

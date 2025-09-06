@@ -6,6 +6,8 @@ import Register from '../Pages/Register/Register';
 import SignIn from '../Pages/Home/Login/SignIn';
 import AddCourse from '../Pages/AddCourse';
 import PrivateRoute from './PrivateRoute';
+import CourseDetails from '../Pages/Shared/CourseDetails';
+import EnroolNow from '../Pages/EnroolNow';
 
 const router = createBrowserRouter([
   {
@@ -22,8 +24,21 @@ const router = createBrowserRouter([
             Component: Register
         },
         {
+            path: '/courses/:id',
+            element: 
+              <CourseDetails></CourseDetails>,
+          
+            loader: ({params})=> fetch(`http://localhost:3000/courses/${params.id}`)
+        },
+        {
             path: '/signIn',
             Component: SignIn
+        },
+        {
+            path: '/enrolNow/:id',
+            element: <PrivateRoute>
+              <EnroolNow></EnroolNow>
+            </PrivateRoute>
         },
         {
             path: '/add-course',

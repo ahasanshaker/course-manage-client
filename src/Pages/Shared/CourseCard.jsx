@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const CourseCard = ({ course }) => {
     return (
@@ -6,7 +7,7 @@ const CourseCard = ({ course }) => {
             <figure className="h-48 overflow-hidden">
                 <img 
                     src={course.image} 
-                    alt={course.title} 
+                alt={course.title} 
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
                 />
             </figure>
@@ -19,7 +20,7 @@ const CourseCard = ({ course }) => {
                 </div>
                 <div className="card-actions mt-4 flex items-center justify-between">
                     <span className="text-indigo-600 font-bold text-lg">${course.price}</span>
-                    <button className="btn btn-primary btn-sm">Enroll Now</button>
+                    <Link to={`/courses/${course._id}`}>  <button className="btn btn-primary btn-sm">Course Details</button></Link>
                 </div>
             </div>
         </div>
