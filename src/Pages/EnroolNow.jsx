@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router";
 import { AuthContext } from "../Context/AuthContext/AuthContext";
+import axios from "axios";
+import Swal from "sweetalert2";   // ✅ import sweetalert2
 
 const EnrollNow = () => {
   const { id: courseId } = useParams();
@@ -19,10 +21,28 @@ const EnrollNow = () => {
       message: form.message.value,
     };
 
-    console.log("Enrollment Data:", enrollData);
-
-    // এখানে তুমি fetch/axios দিয়ে backend এ পাঠাতে পারো
-    // fetch("http://localhost:5000/enroll", { ... })
+    axios
+      .post("http://localhost:3000/enrolls", enrollData)
+      .then((res) => {
+        if (res.data.insertedId) {   // ✅ MongoDB insert success check
+          Swal.fire({
+            title: "Success!",
+            text: "You have successfully enrolled in the course.",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+          form.reset();  // ✅ form reset after success
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong. Please try again.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      });
   };
 
   return (

@@ -9,8 +9,9 @@ const Navbar = () => {
     const links = (
         <>
             <li><NavLink className='btn btn-primary' to='/'>Home</NavLink></li>
-            <li><NavLink className='btn btn-primary' to='/add-course'>Add Course</NavLink></li>
-            <li><NavLink className='btn btn-primary' to='/my-enrollment'>My Enrollment</NavLink></li>
+            {user&&             <li><NavLink className='btn btn-primary' to='/add-course'>Add Course</NavLink></li>
+}
+            {user && <li><NavLink className='btn btn-primary' to='/my-enrollment'>My Enrollment</NavLink></li>}
             <li><NavLink className='btn btn-primary' to='/all-course'>All Course</NavLink></li>
         </>
     );
@@ -41,7 +42,7 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost text-xl">SERA COURSE</a>
             </div>
 
             <div className="navbar-center hidden lg:flex">

@@ -8,6 +8,8 @@ import AddCourse from '../Pages/AddCourse';
 import PrivateRoute from './PrivateRoute';
 import CourseDetails from '../Pages/Shared/CourseDetails';
 import EnroolNow from '../Pages/EnroolNow';
+import MyEnroll from '../Pages/MyEnroll';
+import AllCourses from '../Pages/Shared/AllCourses';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,20 @@ const router = createBrowserRouter([
             Component: SignIn
         },
         {
+            path: 'all-course',
+            Component: AllCourses
+        },
+        {
+            path: '/signIn',
+            Component: SignIn
+        },
+        {
+            path: '/my-enrollment',
+            element: <PrivateRoute>
+              <MyEnroll></MyEnroll>
+            </PrivateRoute>
+        },
+        {
             path: '/enrolNow/:id',
             element: <PrivateRoute>
               <EnroolNow></EnroolNow>
@@ -46,6 +62,7 @@ const router = createBrowserRouter([
               <AddCourse></AddCourse>
             </PrivateRoute>
         },
+      
     ]
   },
 ]);
