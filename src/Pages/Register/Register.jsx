@@ -3,9 +3,11 @@ import Lottie from 'lottie-react';
 import { FcGoogle } from "react-icons/fc";
 import RegisterLottie from '../../assets/lotties/register.json';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
+import { Link, useNavigate } from 'react-router'; // ✅ useNavigate যোগ করলাম
 
 const Register = () => {
-    const { createUser, googleLogin } = useContext(AuthContext); // Context থেকে ফাংশন নিলাম
+    const { createUser, googleLogin } = useContext(AuthContext);
+    const navigate = useNavigate(); // ✅ navigate hook
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -35,6 +37,7 @@ const Register = () => {
             .then(result => {
                 console.log("Email user:", result.user);
                 alert(`User ${formData.fullName} registered successfully!`);
+                navigate("/"); // ✅ Register successful হলে home এ redirect
             })
             .catch(error => {
                 console.log(error);
@@ -48,6 +51,7 @@ const Register = () => {
             .then(result => {
                 console.log("Google user:", result.user);
                 alert(`Welcome ${result.user.displayName || "User"}!`);
+                navigate("/"); // ✅ Google login successful হলে home এ redirect
             })
             .catch(error => {
                 console.log(error);
@@ -158,6 +162,14 @@ const Register = () => {
                         <FcGoogle className="text-2xl" /> 
                         Login with Google
                     </button>
+
+                    {/* Login Link */}
+                    <p className="text-center mt-6">
+                        You have an account?{" "}
+                        <Link to="/signIn" className="text-blue-600 font-semibold hover:underline">
+                            Login
+                        </Link>
+                    </p>
                 </div>
 
                 {/* Lottie Animation */}
