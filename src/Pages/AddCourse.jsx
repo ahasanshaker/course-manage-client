@@ -24,7 +24,7 @@ const AddCourse = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:3000/courses", formData);
+      const res = await axios.post("https://course-add-server.vercel.app/courses", formData);
       if (res.data.insertedId) {
         Swal.fire({
           title: "Success!",

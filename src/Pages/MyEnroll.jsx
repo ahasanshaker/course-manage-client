@@ -7,11 +7,12 @@ const MyEnroll = () => {
     const { user } = useContext(AuthContext);
     const [enrollments, setEnrollments] = useState([]);
     const [loading, setLoading] = useState(true);
+    console.log(user.accessToken)
 
     useEffect(() => {
         if (user?.email) {
             axios
-                .get(`http://localhost:3000/my-enrolls?email=${user.email}`)
+                .get(`https://course-add-server.vercel.app/my-enrolls?email=${user.email}`)
                 .then((res) => {
                     setEnrollments(res.data);
                     setLoading(false);

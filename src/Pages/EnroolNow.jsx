@@ -22,7 +22,7 @@ const EnrollNow = () => {
     };
 
     axios
-      .post("http://localhost:3000/enrolls", enrollData)
+      .post("https://course-add-server.vercel.app/enrolls", enrollData)
       .then((res) => {
         if (res.data.insertedId) {   // ✅ MongoDB insert success check
           Swal.fire({

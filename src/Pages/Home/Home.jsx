@@ -6,7 +6,7 @@ import AboutUseSection from '../AboutUsSection';
 // import HotJobs from '../HotCourse';
 
 const Home = () => {
-    const coursePromise = fetch('http://localhost:3000/courses').then(res=>res.json())
+    const coursePromise = fetch('https://course-add-server.vercel.app/courses').then(res=>res.json())
     return (
         <div>
             <Banner></Banner>
